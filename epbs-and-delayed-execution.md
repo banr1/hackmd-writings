@@ -1,4 +1,4 @@
-# ePBS / Delayed Executionへの問題提起・改善提案
+# ePBSへの問題提起・改善提案
 
 ## Current PBS
 
@@ -440,7 +440,17 @@ class ExecutionPayloadEnvelope(Container):
     state_root: Root
 ```
 
-### 4. 
+### 4. PayloadAttestation
+
+ここだけ詳細は不明。おそらくPTCにもaggregatorは存在するはず。
+最終にブロックに組み込まれる型が`PayloadAttestation`であることは確定している。
+
+```python
+class PayloadAttestation(Container):
+    aggregation_bits: Bitvector[PTC_SIZE]
+    data: PayloadAttestationData
+    signature: BLSSignature
+```
 
 
 ### BeaconState
@@ -544,6 +554,12 @@ class BeaconState(Container):
 
 ![image](https://hackmd.io/_uploads/rJZKImqSlg.png)
 
+# Delayed Executionへの問題提起・改善提案
+
+## Delayed Execution
+
+
+# Minutes
 
 ## Jul 7 Discussion with Tei
 Teiの疑問
@@ -570,4 +586,37 @@ Teiの疑問
     - 後はtwitter, discord, ZuBerlin session, EthCC追う
 - EIP7732/EIP7886がGlamsterdamに含まれるかどうかの決定がいつか調べる
 
-## Jul 8 Discussion with Alpha
+## Jul 8 Discussion with Alpha, vita
+
+### 勝者Builderがpayload公開を遅らせるインセンティブがあるか？の問題
+
+EthereumでPDが起きる対象はかなりあるけどvolume小さい
+
+liquidationは他の人にも知られちゃってそうだから微妙かも
+
+オンチェーンクジラのdump(大量売り)をいち早く検知できる
+
+
+### なぜpayload, block分けたのか？
+
+かつてVitalikが構想をHackMDに書いてた
+3年前ぐらいにTwo head PBSみたいなやつ
+
+### blobを包含するインセンティブが下がる
+
+計算が重いから？よりblobを含めなくなっちゃう
+
+## Jul 8 Discussion with Tei, Alpha
+
+
+
+
+
+
+
+
+
+
+
+
+
